@@ -1,0 +1,90 @@
+﻿@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">*@
+@*<link href="~/Content/datepicker.css" rel="stylesheet" />*@
+@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+@*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>*@
+@*<script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>*@
+@*<link href="~/Content/fontawesome.css" rel="stylesheet" />*@
+@*<script src="~/Scripts/fontawesome.min.js"></script>*@
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<style>
+    .datepicker {
+        z-index: 1600 !important; /* has to be larger than 1050 */
+    }
+</style>
+@*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+<section class="content">
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Manage Employee</h3>
+        </div>
+        <div class="box-body">
+            <div class="innerContent">
+                <!-- Add Room Type -->
+                <div class="col-md-3 pull-left">
+                    @*  @Html.ActionLink("Create New Employee", "Create", "Employee", null, new { @class = "btn btn-primary  btn-block" })*@
+                    @*<button class="btn btn-success" id="CreateNew" data-toggle="modal" data-backdrop="static" data-target="#popup">Create New </button>*@
+                    @*<button id='showGame' class="btn btn-primary">Add New</button>*@
+                    <button id='addEmpNew' class="btn btn-info" data-toggle="modal" data-target="#popupmodel">Add New</button>
+                </div>
+                <div class="bodyContent FloorTableDiv Employeediv">
+                    @Html.Action("List", "Employee")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='gameModal' class='' data-url='@Url.Action("CreateEmployee")'>
+        <div id='gameContainer'>
+        </div>
+    </div>
+    <div class="modal fade" id="popupmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Manage employee</h4>
+                </div>
+                <div class="modalbodypopup">
+
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="Deletepopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm</h4>
+                </div>
+                <div class="modalbodypopup">
+                    @*<h1>Are you Sure want to delete?</h1>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="DeleteUser" class="btn btn-default" data-dismiss="modal">Delete</button>
+                    @*   <button type="button" class="btn btn-primary">Save changes</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+</section>
+<script>
+    $('.modal').on('shown.bs.modal', function () {
+        $('#bithday').datepicker({
+            format: "dd/mm/yyyy",
+            //startDate: "01-01-2015",
+            //endDate: "01-01-2020",
+            todayBtn: "linked",
+            autoclose: true,
+            todayHighlight: true,
+            //container: '#myModal modal-body'
+        });
+    });</script>
+<script src="~/Scripts/Employee.js"></script>

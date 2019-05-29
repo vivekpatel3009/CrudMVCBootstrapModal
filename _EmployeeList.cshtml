@@ -1,0 +1,46 @@
+﻿
+@model IList<Crud_applicaton.Models.EmployeeModel>
+<div style="width: 100%;" class="partialclassdiv">
+    <div class="table-responsive" style="width: 98%;">
+        <table class="table  table-bordered  table-striped  tblEmployee" cellspacing="0">
+            <thead>
+                <tr class="">
+                    <th class="tblheader">No.</th>
+                    <th class="tblheader">Name</th>
+                    <th class="tblheader">DOB</th>
+                    <th class="tblheader">State</th>
+                    <th class="tblheader">Contry</th>
+                    <th class="cls_action tblheader">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr id="@item.id" class="">
+                    <td class="tbl50 tblheader countclass countclass">
+                        @item.count
+                    </td>
+                    <td class="tbl200 tblheader">
+                        @item.name
+                    </td>
+                    <td class="tbl350 tblheader">
+                        @item.bithday.ToString(string.Format("dd/MM/yyyy"))
+                    </td>
+                    <td class="tbl200 tblheader">
+                        @item.State
+                    </td>
+                    <td class="tbl350 tblheader">
+                        @item.Contry
+                    </td>
+                    <td class="tbl150 tblheader" style=" text-align: -webkit-center">
+                      @*  <input type="checkbox" data-toggle="toggle" id="toggletrigger_@item.id" @(item.Status == 1 ? "checked=\"checked\"" : "") onchange="fonctionTest('@item.FloorId', '@item.Status')" />*@
+                        @*<a href="@Url.Action("Edit", "Employee" ,new { @id=item.id})" style="margin-left: 22px;"><i class="fas fa-edit"></i></a>*@
+                        <a  id="Editempbtn_@item.id"  data-toggle="modal" data-target="#popupmodel"><i class="fas fa-edit"></i></a>
+                        <a  id="Deleteempbtn_@item.id"  data-toggle="modal" data-target="#DeleteModal"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

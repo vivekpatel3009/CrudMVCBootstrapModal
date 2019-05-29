@@ -1,0 +1,74 @@
+﻿@model Crud_applicaton.Models.EmployeeModel
+<div class="panel-group">
+    <div class="panel-default">
+        <div class="panel-body">
+            <div class="col-sm-8 col-sm-offset-2">
+                @using (Html.BeginForm("AddEmployee", "Employee", FormMethod.Post, new { @id = "formsubmit" }))
+                {
+                    @*@Html.HiddenFor(m => m.id, new { @id = "idGt" })*@
+                    @Html.HiddenFor(m => m.Editmode, new { @id = "Editmode" })
+                    @Html.HiddenFor(m => m.id, new { @id = "id" })
+                    @*<div class="form-group">
+                            <label for="EmployeeId">ID</label>
+                            <input type="text" class="form-control" id="EmployeeID" placeholder="Id" disabled="disabled" />
+                        </div>*@
+                    <div class="form-group">
+                        <label for="Name">Name</label>
+                        @Html.TextBoxFor(x => x.name, new { @class = "form-control", name = "name" })
+                        @*<input type="text" class="form-control" id="EMPName" name="EMPName" placeholder="Name" />*@
+                    </div>
+                    <div class="form-group">
+                        <label for="Age">DOB</label>
+                        @Html.TextBoxFor(x => x.bithday, "{0:dd/MM/yyyy}",new { @class = "form-control",id= "bithday", name = "bithday" })
+                        @*<input type="text" class="form-control" id="bithday" placeholder="DOB" />*@
+                    </div>
+                    @*<div class="form-group">
+                            <label for="State">State</label>
+                            <input type="text" class="form-control" id="State" placeholder="State" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Country">Country</label>
+                            <input type="text" class="form-control" id="Country" placeholder="Country" />
+                        </div>*@
+                    <div class="form-group">
+                        <label for="Age">Contry</label>
+                        @Html.DropDownListFor(model => model.ContryID, new SelectList(ViewBag.ContryListVB, "ContryId", "ContryName"), "- Please Select Floor -", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ContryID)
+                    </div>
+                    <div class="form-group">
+                        <label for="Age">State</label>
+                        @Html.DropDownListFor(model => model.StateID, new SelectList(ViewBag.FloorListVB, "StateId", "StateName"), "- Please Select Floor -", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.StateID)
+                    </div>
+                    <button type="submit" class="btn btn-success btn-block" id="submitdata" onclick="btnsubmit()">Form submit</button>
+                    @*<button type="button" class="btn btn-success btn-block" id="updaterecord" onclick="Updatesubmit()">Update Record</button>*@
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    //country on change
+    $("#ContryID").change(function () {
+        $("#StateID").empty();
+        $.ajax({
+            type: 'POST',
+            url: '/Employee/ContryChange',
+            dataType: 'json',
+            data: { id: $("#ContryID").val() },
+            success: function (city) {
+
+                $.each(city, function (i, city) {
+                    $("#StateID").append('<option value="'
+                        + city.Value + '">'
+                        + city.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed.' + ex);
+            }
+        });
+        return false;
+    })
+</script>
